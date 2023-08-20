@@ -22,8 +22,14 @@ import transformers
 import utils
 from torch.utils.data import Dataset
 #from transformers import Trainer
-from trl import SFTTrainer
-from peft import LoraConfig
+from peft import (  # noqa: E402
+    LoraConfig,
+    get_peft_model,
+    get_peft_model_state_dict,
+    prepare_model_for_int8_training,
+    set_peft_model_state_dict,
+)
+from custom_trainer import CustomTrainer
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
@@ -222,15 +228,14 @@ def train():
         bias="none",
         task_type="CAUSAL_LM",
     )
-    trainer = SFTTrainer(
+    model = get_peft_model(model, peft_config)
+    model.print_trainable_parameters()  # Be more transparent about the % of trainable params.
+    trainer = CustomTrainer(
         model=model,
         args=training_args,
-        max_seq_length=64,
-        tokenizer=tokenizer,
-        peft_config=peft_config,
-        packing=True,
         **data_module
     )
+
     trainer.train()
     trainer.save_state()
     trainer.save_model(output_dir=training_args.output_dir)

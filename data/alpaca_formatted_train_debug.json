@@ -1,0 +1,17 @@
+[
+    {
+        "instruction": "Conduct extractive summarization on the given document.",
+        "input": "I went to supermarket today",
+        "output": "I went to supermarket today"
+    },
+    {
+        "instruction": "Conduct extractive summarization on the given document.",
+        "input": "England was defeated by Spain in the final.",
+        "output": "England was defeated by Spain."
+    },
+    {
+        "instruction": "Conduct extractive summarization on the given document.",
+        "input": "Charile Chaplin was born in London.",
+        "output": "Charile Chaplin was born in London."
+    }
+]
