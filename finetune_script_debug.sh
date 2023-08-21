@@ -1,16 +1,14 @@
 
-git clone https://github.com/huggingface/transformers.git
-
-python src/transformers/models/llama/convert_llama_weights_to_hf.py --input_dir /scratch/prj/eventnlu/share/pretrained_models/llama --model_size 7B --output_dir llama_7b_hf
-
 git lfs install
 
 git clone https://huggingface.co/tatsu-lab/alpaca-7b-wdiff
 
-python weight_diff.py recover --path_raw llama_7b_hf --path_diff alpaca-7b-wdiff --path_tuned alpaca_weights
+python weight_diff.py recover --path_raw /scratch/prj/eventnlu/share/pretrained_models/llama-7b --path_diff alpaca-7b-wdiff --path_tuned /scratch/prj/eventnlu/share/pretrained_models/alpaca_weights
+
+rm -r alpaca-7b-wdiff
 
 torchrun --nproc_per_node=3 train.py \
-    --model_name_or_path alpaca_weights \
+    --model_name_or_path /scratch/prj/eventnlu/share/pretrained_models/alpaca_weights \
     --data_path data/alpaca_formatted_train_debug.json \
     --fp16 True \
     --output_dir alpaca_run \
