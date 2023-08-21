@@ -1,16 +1,3 @@
-
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-
-sudo apt-get install git-lfs
-
-git lfs install
-
-git clone https://huggingface.co/tatsu-lab/alpaca-7b-wdiff
-
-python weight_diff.py recover --path_raw /scratch/prj/eventnlu/share/pretrained_models/llama-7b --path_diff alpaca-7b-wdiff --path_tuned /scratch/prj/eventnlu/share/pretrained_models/alpaca_weights
-
-rm -r alpaca-7b-wdiff
-
 torchrun --nproc_per_node=3 train.py \
     --model_name_or_path /scratch/prj/eventnlu/share/pretrained_models/alpaca_weights \
     --data_path data/alpaca_formatted_train_debug.json \
