@@ -59,7 +59,7 @@ class TrainingArguments(transformers.TrainingArguments):
     cache_dir: Optional[str] = field(default=None)
     optim: str = field(default="adamw_torch")
     model_max_length: int = field(
-        default=512,
+        default=2048,
         metadata={"help": "Maximum sequence length. Sequences will be right padded (and possibly truncated)."},
     )
 
@@ -217,7 +217,7 @@ def train():
     #trainer = Trainer(model=model, tokenizer=tokenizer, args=training_args, **data_module)
     
     peft_config = LoraConfig(
-        r=2,
+        r=8,
         lora_alpha=16,
         bias="none",
         task_type="CAUSAL_LM",
@@ -225,7 +225,7 @@ def train():
     trainer = SFTTrainer(
         model=model,
         args=training_args,
-        max_seq_length=64,
+        max_seq_length=2048,
         tokenizer=tokenizer,
         peft_config=peft_config,
         packing=True,
