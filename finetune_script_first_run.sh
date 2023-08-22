@@ -1,5 +1,3 @@
-python process_doc_len.py --path /scratch/prj/eventnlu/share/pretrained_models/alpaca_weights
-
 python permu_augmentation.py
 
 torchrun --nproc_per_node=3 train.py \

@@ -7,7 +7,7 @@ def add_permutation(train_list, upper_limit=5):
     # maximum permutation is the upper_limit
     new_train_list = []
     #tk_len_list = []
-    for doc_dict in new_train_list:
+    for doc_dict in train_list:
         count = 0
         origin_target = doc_dict['output']
         #tk_len_list.append(len(nltk.word_tokenize(origin_target)))
